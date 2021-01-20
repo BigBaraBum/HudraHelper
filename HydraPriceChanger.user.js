@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      0.5.5
+// @version      0.5.6
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/catalog/*
@@ -23,12 +23,15 @@
     .append('<p>Сумма прибавления</p>')
     .append('<input id="input-adder" type="number" value=200 />')
     .append('<button id="button-adder">Прибавить</button>')
-    .append('<p>Version:</p>').append('<span>0.5.5</span>');
+    .append('<p>Version:</p>').append('<span class="version">0.5.6</span>')
+    .append('<p>Текущий баланс в BTC: <span class="balance-btc"></span></p>')
+    .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>');
 
     $('#button-adder').click(function(){
         var value = $('#input-adder').get(0).value;
         renderPrices(parseInt(value));
     });
+    
     function renderPrices(sumToAdd){
         $('.slide_price span, .price span').each(function(){
             var oldPrice = $(this).get(0).innerText;
