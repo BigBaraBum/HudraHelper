@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      0.5.4
+// @version      0.5.5
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/catalog/*
@@ -23,7 +23,7 @@
     .append('<p>Сумма прибавления</p>')
     .append('<input id="input-adder" type="number" value=200 />')
     .append('<button id="button-adder">Прибавить</button>')
-    .append('<p>Version:</p>').append('<span>0.5.4</span>');
+    .append('<p>Version:</p>').append('<span>0.5.5</span>');
 
     $('#button-adder').click(function(){
         var value = $('#input-adder').get(0).value;
