@@ -8,6 +8,7 @@
 // @grant        none
 // @require http://code.jquery.com/jquery-3.4.1.min.js
 // @require https://code.jquery.com/ui/1.11.4/jquery-ui.min.js
+// @updateURL https://github.com/BigBaraBum/HudraHelper/raw/master/HydraPriceChanger.user.js
 // ==/UserScript==
 
 (function() {
