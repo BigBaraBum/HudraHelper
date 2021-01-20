@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      0.5.3
+// @version      0.5.4
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/catalog/*
@@ -15,12 +15,15 @@
     'use strict';
 
     $('body').append('<div class="mymenu"></div>');
-    $('.mymenu').css({'position':'fixed','top':'0','left':'0','background':'rgba(255,255,255,1)','width':'250px','height':'400px','z-index':'999999','border':'5px solid blue','padding':'20px'}).draggable();
+    $('.mymenu')
+    .css({'position':'fixed','top':'0','left':'0','background':'rgba(255,255,255,1)','width':'250px','height':'400px','z-index':'999999','border':'5px solid blue','padding':'20px'})
+    .draggable();
 
     $('.mymenu')
     .append('<p>Сумма прибавления</p>')
     .append('<input id="input-adder" type="number" value=200 />')
-    .append('<button id="button-adder">Прибавить</button>');
+    .append('<button id="button-adder">Прибавить</button>')
+    .append('<p>Version:</p>').append('<span>0.5.4</span>')
 
     $('#button-adder').click(function(){
         var value = $('#input-adder').get(0).value;
@@ -29,7 +32,7 @@
     function renderPrices(sumToAdd){
         $('.slide_price span, .price span').each(function(){
             var oldPrice = $(this).get(0).innerText;
-            var newPrice = sumOldPrice(oldPrice, sumToAdd);
+            var newPrice = sumOldPrice(oldPrice, sumToAdd);S
             var position = newPrice.length;
             var ending = oldPrice.slice(position);
             var final = newPrice + ending;
