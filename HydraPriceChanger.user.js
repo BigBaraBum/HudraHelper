@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      0.6.1
+// @version      0.7
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/catalog/*
@@ -34,7 +34,7 @@
     .append('<input id="input-adder" type="number" value=200 />')
     .append('<button id="button-adder">Прибавить</button>')
     .append("<p>Version:</p>")
-    .append('<span class="version">0.6.1</span>')
+    .append('<span class="version">0.7</span>')
     .append('<p>Текущий баланс в BTC: <span class="balance-btc"></span></p>')
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>');
 
