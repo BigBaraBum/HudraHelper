@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.5.1
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/catalog/*
@@ -22,6 +22,9 @@
         renderPrices(parseInt(value));
     });
     var sumToAdd = 200;
+    function getTransactionFee(){
+
+    }
     function renderPrices(sumToAdd){
         $('.slide_price span, .price span').each(function(){
             var oldPrice = $(this).get(0).innerText;
