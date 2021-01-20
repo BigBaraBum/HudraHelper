@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      0.5.2
+// @version      0.5.3
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/catalog/*
@@ -13,10 +13,15 @@
 
 (function() {
     'use strict';
+
     $('body').append('<div class="mymenu"></div>');
     $('.mymenu').css({'position':'fixed','top':'0','left':'0','background':'rgba(255,255,255,1)','width':'250px','height':'400px','z-index':'999999','border':'5px solid blue','padding':'20px'}).draggable();
-    $('.mymenu').append('<p>Сумма прибавления</p>').append('<input id="input-adder" type="number" value=200 />');
-    $('.mymenu').append('<button id="button-adder">Прибавить</button>');
+
+    $('.mymenu')
+    .append('<p>Сумма прибавления</p>')
+    .append('<input id="input-adder" type="number" value=200 />')
+    .append('<button id="button-adder">Прибавить</button>');
+
     $('#button-adder').click(function(){
         var value = $('#input-adder').get(0).value;
         renderPrices(parseInt(value));
