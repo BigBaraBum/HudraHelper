@@ -29,7 +29,10 @@
       padding: "20px"
     })
     .draggable();
-  $(".mymenu").append('<button id="hide">Меню</button>').append('<div class="mymenu-wrapper></div>"');
+  $(".mymenu")
+  .append('<button id="hide">Меню</button>')
+  .append('<div class="mymenu-wrapper></div>"');
+
   $("#hide").click(function () {
     $(".mymenu-wrapper").toggle();
   });
@@ -42,8 +45,7 @@
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">2.7</span></p>')
-    .hide();
+    .append('<p>Version: <span class="version">2.7</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
