@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
-// @match        http://hydraruzxpnew4af.onion/catalog/*
+// @match        http://hydraruzxpnew4af.onion/*
 // @grant        none
 // @require http://code.jquery.com/jquery-3.4.1.min.js
 // @require https://code.jquery.com/ui/1.11.4/jquery-ui.min.js
@@ -13,7 +13,7 @@
 
 (function () {
   "use strict";
-
+  var currentPage = "";
   $("body").append('<div class="mymenu"></div>');
   $(".mymenu")
     .css({
@@ -35,13 +35,27 @@
     .append('<button id="button-adder">Прибавить</button>')
     .append('<p>Текущий баланс в BTC: <span class="balance-btc"></span></p>')
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
-    .append('<p>Version: <span class="version">0.8</span></p>');
+    .append('<p>Страница:<span class="page-display"></span></p>')
+    .append('<p>Version: <span class="version">0.9</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
     renderPrices(parseInt(value));
   });
   renderBalanceWallet();
+  getCurrentPage();
+  
+  function getCurrentPage() {
+    var pathname = window.location.pathname;
+    if (pathname.startsWith("/product")) {
+      setPageDisplay('Продукт');
+      setCurrentPage('product');
+    }else if(pathname.startsWith('/catalog')){
+      setPageDisplay('Каталог');
+      setCurrentPage('catalog');
+    }
+  }
+
   function renderBalanceWallet() {
     $.ajax({
       url: "http://hydraruzxpnew4af.onion/balance",
@@ -82,5 +96,11 @@
   }
   function setWallet(wallet) {
     $(".btc-wallet").get(0).textContent = wallet;
+  }
+  function setPageDisplay(pageName) {
+    $(".page-display").get(0).textContent = pageName;
+  }
+  function setCurrentPage(data) {
+    currentPage = data;
   }
 })();
