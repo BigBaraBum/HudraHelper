@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/*
@@ -36,7 +36,7 @@
     .append('<p>Текущий баланс в BTC: <span class="balance-btc"></span></p>')
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Страница:<span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">1.0</span></p>');
+    .append('<p>Version: <span class="version">1.1</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
@@ -44,6 +44,12 @@
   });
   renderBalanceWallet();
   getCurrentPage();
+  if (currentPage == "product") {
+    $(".mymenu").append('<button id="button-discounts">Убрать скидки</button>');
+    $("#button-discounts").click(function () {
+      removeDiscounts();
+    });
+  }
 
   function getCurrentPage() {
     var pathname = window.location.pathname;
@@ -55,7 +61,11 @@
       setCurrentPage("catalog");
     }
   }
-
+  function removeDiscounts() {
+    $(".av_price s").each(function () {
+      $(this).remove();
+    });
+  }
   function renderBalanceWallet() {
     $.ajax({
       url: "http://hydraruzxpnew4af.onion/balance",
@@ -81,8 +91,8 @@
         var final = newPrice + ending;
         $(this).get(0).innerText = final;
       });
-    }else if(currentPage=="product"){
-      $('.av_price b').each(function(){
+    } else if (currentPage == "product") {
+      $(".av_price b").each(function () {
         var oldPrice = $(this).get(0).innerText;
         var newPrice = sumOldPrice(oldPrice, sumToAdd);
         var position = newPrice.length;
