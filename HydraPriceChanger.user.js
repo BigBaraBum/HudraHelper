@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/*
@@ -14,6 +14,7 @@
 (function () {
   "use strict";
   var currentPage = "";
+  setRedStyle();
   $("body").append('<div class="mymenu"></div>');
   $(".mymenu")
     .css({
@@ -36,7 +37,7 @@
     .append('<p>Текущий баланс в BTC: <span class="balance-btc"></span></p>')
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Страница:<span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">1.1</span></p>');
+    .append('<p>Version: <span class="version">1.2</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
@@ -50,7 +51,16 @@
       removeDiscounts();
     });
   }
-
+  function setRedStyle() {
+    $(".bg-primary").each(function () {
+      $(this).css({ background: "black" });
+    });
+    $("a, p, h1, h2, h3, h4, h5, h6, b, span, div").each(function () {
+      $(this).css({ color: "red" });
+    });
+    $("body, div, .btn-primary, input, blockquote").css({ background: "black" });
+    $(".av_tabs").css({ border: "none" });
+  }
   function getCurrentPage() {
     var pathname = window.location.pathname;
     if (pathname.startsWith("/product")) {
