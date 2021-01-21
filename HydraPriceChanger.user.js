@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      0.9
+// @version      1.0
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/*
@@ -36,7 +36,7 @@
     .append('<p>Текущий баланс в BTC: <span class="balance-btc"></span></p>')
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Страница:<span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">0.9</span></p>');
+    .append('<p>Version: <span class="version">1.0</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
@@ -44,15 +44,15 @@
   });
   renderBalanceWallet();
   getCurrentPage();
-  
+
   function getCurrentPage() {
     var pathname = window.location.pathname;
     if (pathname.startsWith("/product")) {
-      setPageDisplay('Продукт');
-      setCurrentPage('product');
-    }else if(pathname.startsWith('/catalog')){
-      setPageDisplay('Каталог');
-      setCurrentPage('catalog');
+      setPageDisplay("Продукт");
+      setCurrentPage("product");
+    } else if (pathname.startsWith("/catalog")) {
+      setPageDisplay("Каталог");
+      setCurrentPage("catalog");
     }
   }
 
@@ -65,7 +65,6 @@
         var wallet = $(response).find(".balance_list .text-primary")[1].innerText;
         setBalance(balance);
         setWallet(wallet);
-        console.log(wallet);
       },
       error: function (error) {
         alert(error);
@@ -73,14 +72,26 @@
     });
   }
   function renderPrices(sumToAdd) {
-    $(".slide_price span, .price span").each(function () {
-      var oldPrice = $(this).get(0).innerText;
-      var newPrice = sumOldPrice(oldPrice, sumToAdd);
-      var position = newPrice.length;
-      var ending = oldPrice.slice(position);
-      var final = newPrice + ending;
-      $(this).get(0).innerText = final;
-    });
+    if (currentPage == "catalog") {
+      $(".slide_price span, .price span").each(function () {
+        var oldPrice = $(this).get(0).innerText;
+        var newPrice = sumOldPrice(oldPrice, sumToAdd);
+        var position = newPrice.length;
+        var ending = oldPrice.slice(position);
+        var final = newPrice + ending;
+        $(this).get(0).innerText = final;
+      });
+    }else if(currentPage=="product"){
+      $('.av_price b').each(function(){
+        var oldPrice = $(this).get(0).innerText;
+        var newPrice = sumOldPrice(oldPrice, sumToAdd);
+        var position = newPrice.length;
+        var ending = oldPrice.slice(position);
+        var final = newPrice + ending;
+        $(this).get(0).innerText = final;
+        //console.log($(this).get(0).innerText)
+      });
+    }
   }
 
   function sumOldPrice(oldPrice, sumToAdd) {
