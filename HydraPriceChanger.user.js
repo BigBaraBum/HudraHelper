@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      2.4
+// @version      2.5
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/*
@@ -40,7 +40,7 @@
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">2.4</span></p>');
+    .append('<p>Version: <span class="version">2.5</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
@@ -61,9 +61,26 @@
     } else if (window.location.pathname.startsWith("/catalog")) {
       setCurrentPage("catalog");
       setPageDisplay("Каталог");
+    } else if(window.location.pathname == '/'){
+      setCurrentPage('login');
+      setPageDisplay('Логин');
+      addLoginButtons();
     }
     setCurrentHost(window.location.origin);
     renderCurrentHost();
+  }
+  function addLoginButtons(){
+    $('.mymenu')
+    .append('<button id="button-bigbarabum">BigBaraBum</button>')
+    .append('<button id="button-mason">Mason</button>');
+    $('#button-bigbarabum').click(function(){
+      $('#login-name').get(0).value = 'BigBaraBum';
+      $('#login-pass').get(0).value = 'stakan420';
+    });
+    $('#button-mason').click(function(){
+      $('#login-name').get(0).value = 'MrMasoon456';
+      $('#login-pass').get(0).value = 'Mason96Jamboo';
+    });
   }
   function renderCurrentHost() {
     $(".host-display").get(0).textContent = currentHost;
@@ -96,7 +113,7 @@
         setWallet(wallet);
       },
       error: function (error) {
-        alert(error);
+        console.log(error);
       }
     });
   }
