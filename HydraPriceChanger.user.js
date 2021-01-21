@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      2.6
+// @version      2.7
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/*
@@ -24,15 +24,17 @@
       top: "0",
       left: "0",
       background: "rgba(255,255,255,1)",
-      width: "500px",
-      height: "400px",
       "z-index": "999999",
       border: "5px solid blue",
       padding: "20px"
     })
     .draggable();
+  $(".mymenu").append('<button id="hide">Меню</button>').append('<div class="mymenu-wrapper></div>"');
+  $("#hide").click(function () {
+    $(".mymenu-wrapper").toggle();
+  });
 
-  $(".mymenu")
+  $(".mymenu-wrapper")
     .append("<p>Сумма прибавления</p>")
     .append('<input id="input-adder" type="number" value=200 />')
     .append('<button id="button-adder">Прибавить</button>')
@@ -40,7 +42,8 @@
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">2.6</span></p>');
+    .append('<p>Version: <span class="version">2.7</span></p>')
+    .hide();
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
@@ -49,7 +52,7 @@
   renderCurrentPage();
   renderBalanceWallet();
   if (currentPage == "product") {
-    $(".mymenu").append('<button id="button-discounts">Убрать скидки</button>');
+    $(".mymenu-wrapper").append('<button id="button-discounts">Убрать скидки</button>');
     $("#button-discounts").click(function () {
       removeDiscounts();
     });
@@ -61,25 +64,23 @@
     } else if (window.location.pathname.startsWith("/catalog")) {
       setCurrentPage("catalog");
       setPageDisplay("Каталог");
-    } else if((window.location.pathname == '/')||(window.location.pathname.startsWith('/login'))){
-      setCurrentPage('login');
-      setPageDisplay('Логин');
+    } else if (window.location.pathname == "/" || window.location.pathname.startsWith("/login")) {
+      setCurrentPage("login");
+      setPageDisplay("Логин");
       addLoginButtons();
     }
     setCurrentHost(window.location.origin);
     renderCurrentHost();
   }
-  function addLoginButtons(){
-    $('.mymenu')
-    .append('<button id="button-bigbarabum">BigBaraBum</button>')
-    .append('<button id="button-mason">Mason</button>');
-    $('#button-bigbarabum').click(function(){
-      $('#login-name').get(0).value = 'BigBaraBum';
-      $('#login-pass').get(0).value = 'stakan420';
+  function addLoginButtons() {
+    $(".mymenu-wrapper").append('<button id="button-bigbarabum">BigBaraBum</button>').append('<button id="button-mason">Mason</button>');
+    $("#button-bigbarabum").click(function () {
+      $("#login-name").get(0).value = "BigBaraBum";
+      $("#login-pass").get(0).value = "stakan420";
     });
-    $('#button-mason').click(function(){
-      $('#login-name').get(0).value = 'MrMasoon456';
-      $('#login-pass').get(0).value = 'Mason96Jamboo';
+    $("#button-mason").click(function () {
+      $("#login-name").get(0).value = "MrMasoon456";
+      $("#login-pass").get(0).value = "Mason96Jamboo";
     });
   }
   function renderCurrentHost() {
@@ -102,7 +103,7 @@
     });
   }
   function renderBalanceWallet() {
-    var url = currentHost + '/balance';
+    var url = currentHost + "/balance";
     $.ajax({
       url: url,
       dataType: "html",
