@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      2.3
+// @version      2.4
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
-// @match        http://hydraruzxpnew4af.onion./*
+// @match        http://hydraruzxpnew4af.onion/*
 // @match        http://hydra2exghh3rnmc.onion/*
 // @grant        none
 // @require http://code.jquery.com/jquery-3.4.1.min.js
@@ -40,7 +40,7 @@
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">2.3</span></p>');
+    .append('<p>Version: <span class="version">2.4</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
