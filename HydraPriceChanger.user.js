@@ -31,7 +31,7 @@
     .draggable();
   $(".mymenu")
   .append('<button id="hide">Меню</button>')
-  .append('<div class="mymenu-wrapper></div>"');
+  .append('<div class="mymenu-wrapper"></div>');
 
   $("#hide").click(function () {
     $(".mymenu-wrapper").toggle();
