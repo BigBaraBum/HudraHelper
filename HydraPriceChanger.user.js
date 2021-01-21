@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      2.1
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion.*
@@ -15,6 +15,7 @@
 (function () {
   "use strict";
   var currentPage = "";
+  var currentHost = "";
   //setRedStyle();
   $("body").append('<div class="mymenu"></div>');
   $(".mymenu")
@@ -37,20 +38,35 @@
     .append('<button id="button-adder">Прибавить</button>')
     .append('<p>Текущий баланс в BTC: <span class="balance-btc"></span></p>')
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
-    .append('<p>Страница:<span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">2.0</span></p>');
+    .append('<p>Текущий сайт: <span class="host-display"></span></p>')
+    .append('<p>Страница: <span class="page-display"></span></p>')
+    .append('<p>Version: <span class="version">2.1</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
     renderPrices(parseInt(value));
   });
+  renderCurrentPage();
   renderBalanceWallet();
-  getCurrentPage();
   if (currentPage == "product") {
     $(".mymenu").append('<button id="button-discounts">Убрать скидки</button>');
     $("#button-discounts").click(function () {
       removeDiscounts();
     });
+  }
+  function renderCurrentPage() {
+    if (window.location.pathname.startsWith("/product")) {
+      setCurrentPage("product");
+      setPageDisplay("Продукт");
+    } else if (window.location.pathname.startsWith("/catalog")) {
+      setCurrentPage("catalog");
+      setPageDisplay("Каталог");
+    }
+    setCurrentHost(window.location.host);
+    renderCurrentHost();
+  }
+  function renderCurrentHost() {
+    $(".host-display").get(0).textContent = currentHost;
   }
   function setRedStyle() {
     $(".bg-primary").each(function () {
@@ -62,24 +78,16 @@
     $("body, div, .btn-primary, input, blockquote").css({ background: "black" });
     $(".av_tabs").css({ border: "none" });
   }
-  function getCurrentPage() {
-    var pathname = window.location.pathname;
-    if (pathname.startsWith("/product")) {
-      setPageDisplay("Продукт");
-      setCurrentPage("product");
-    } else if (pathname.startsWith("/catalog")) {
-      setPageDisplay("Каталог");
-      setCurrentPage("catalog");
-    }
-  }
+
   function removeDiscounts() {
     $(".av_price s").each(function () {
       $(this).remove();
     });
   }
   function renderBalanceWallet() {
+    var url = currentHost + '/balance';
     $.ajax({
-      url: "http://hydraruzxpnew4af.onion/balance",
+      url: url,
       dataType: "html",
       success: function (response) {
         var balance = $(response).find(".balance_list .text-primary")[0].innerText;
@@ -134,5 +142,8 @@
   }
   function setCurrentPage(data) {
     currentPage = data;
+  }
+  function setCurrentHost(data) {
+    currentHost = data;
   }
 })();
