@@ -1,11 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-<<<<<<< HEAD
-// @version      2.7
-=======
-// @version      2.9
->>>>>>> 7096f72fe88c8e5ab699d22a68dfce7ba6573e07
+// @version      3.0
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/*
@@ -31,17 +27,11 @@
       "z-index": "999999",
       border: "5px solid blue",
       padding: "20px"
-<<<<<<< HEAD
     });
-
-=======
-    })
-    .draggable();
->>>>>>> 7096f72fe88c8e5ab699d22a68dfce7ba6573e07
   $(".mymenu")
   .append('<button id="hide">Меню</button>')
   .append('<div class="mymenu-wrapper"></div>');
-
+  $('.mymenu-wrapper').toggle();
   $("#hide").click(function () {
     $(".mymenu-wrapper").toggle();
   });
@@ -54,11 +44,8 @@
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
-<<<<<<< HEAD
-    .append('<p>Version: <span class="version">2.7</span></p>');
-=======
-    .append('<p>Version: <span class="version">2.9</span></p>');
->>>>>>> 7096f72fe88c8e5ab699d22a68dfce7ba6573e07
+    .append('<p>Version: <span class="version">3.0</span></p>');
+
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
@@ -87,14 +74,8 @@
     setCurrentHost(window.location.origin);
     renderCurrentHost();
   }
-<<<<<<< HEAD
-
-  function addLoginButtons() {
-    $(".mymenu").append('<button id="button-bigbarabum">BigBaraBum</button>').append('<button id="button-mason">Mason</button>');
-=======
   function addLoginButtons() {
     $(".mymenu-wrapper").append('<button id="button-bigbarabum">BigBaraBum</button>').append('<button id="button-mason">Mason</button>');
->>>>>>> 7096f72fe88c8e5ab699d22a68dfce7ba6573e07
     $("#button-bigbarabum").click(function () {
       $("#login-name").get(0).value = "BigBaraBum";
       $("#login-pass").get(0).value = "stakan420";
