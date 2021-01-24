@@ -20,7 +20,7 @@
   $("body").append('<div class="mymenu"></div>');
   $(".mymenu")
     .css({
-      position: "fixed",
+      position: "absolute",
       top: "0",
       left: "0",
       background: "rgba(255,255,255,1)",
@@ -29,8 +29,7 @@
       "z-index": "999999",
       border: "5px solid blue",
       padding: "20px"
-    })
-    .draggable();
+    });
 
   $(".mymenu")
     .append("<p>Сумма прибавления</p>")
@@ -61,25 +60,24 @@
     } else if (window.location.pathname.startsWith("/catalog")) {
       setCurrentPage("catalog");
       setPageDisplay("Каталог");
-    } else if((window.location.pathname == '/')||(window.location.pathname.startsWith('/login'))){
-      setCurrentPage('login');
-      setPageDisplay('Логин');
+    } else if (window.location.pathname == "/" || window.location.pathname.startsWith("/login")) {
+      setCurrentPage("login");
+      setPageDisplay("Логин");
       addLoginButtons();
     }
     setCurrentHost(window.location.origin);
     renderCurrentHost();
   }
-  function addLoginButtons(){
-    $('.mymenu')
-    .append('<button id="button-bigbarabum">BigBaraBum</button>')
-    .append('<button id="button-mason">Mason</button>');
-    $('#button-bigbarabum').click(function(){
-      $('#login-name').get(0).value = 'BigBaraBum';
-      $('#login-pass').get(0).value = 'stakan420';
+
+  function addLoginButtons() {
+    $(".mymenu").append('<button id="button-bigbarabum">BigBaraBum</button>').append('<button id="button-mason">Mason</button>');
+    $("#button-bigbarabum").click(function () {
+      $("#login-name").get(0).value = "BigBaraBum";
+      $("#login-pass").get(0).value = "stakan420";
     });
-    $('#button-mason').click(function(){
-      $('#login-name').get(0).value = 'MrMasoon456';
-      $('#login-pass').get(0).value = 'Mason96Jamboo';
+    $("#button-mason").click(function () {
+      $("#login-name").get(0).value = "MrMasoon456";
+      $("#login-pass").get(0).value = "Mason96Jamboo";
     });
   }
   function renderCurrentHost() {
@@ -102,7 +100,7 @@
     });
   }
   function renderBalanceWallet() {
-    var url = currentHost + '/balance';
+    var url = currentHost + "/balance";
     $.ajax({
       url: url,
       dataType: "html",
@@ -162,5 +160,38 @@
   }
   function setCurrentHost(data) {
     currentHost = data;
+  }
+  function getOrders() {
+    var shops = {};
+    var baseUrl = "http://hydraruzxpnew4af.onion/orders/closed?page=";
+    for (var i = 1; i <= 104; i++) {
+      var newUrl = baseUrl + String(i);
+      getOrders(newUrl);
+      if (i == 104) {
+        console.log(shops);
+      }
+    }
+    function getOrders(url) {
+      $.ajax({
+        url: url,
+        dataType: "html",
+        timeout: 3000,
+        success: function (response) {
+          $(response)
+            .find(".table tbody tr .tdo_tools_name a")
+            .each(function () {
+              var shopName = $(this).get(0).innerText;
+              if (shops[shopName]) {
+                shops[shopName] += 1;
+              } else {
+                shops[shopName] = 1;
+              }
+            });
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
   }
 })();
