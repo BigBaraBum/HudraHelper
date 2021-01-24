@@ -1,7 +1,11 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
+<<<<<<< HEAD
 // @version      2.7
+=======
+// @version      2.9
+>>>>>>> 7096f72fe88c8e5ab699d22a68dfce7ba6573e07
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/*
@@ -24,14 +28,25 @@
       top: "0",
       left: "0",
       background: "rgba(255,255,255,1)",
-      width: "500px",
-      height: "400px",
       "z-index": "999999",
       border: "5px solid blue",
       padding: "20px"
+<<<<<<< HEAD
     });
 
+=======
+    })
+    .draggable();
+>>>>>>> 7096f72fe88c8e5ab699d22a68dfce7ba6573e07
   $(".mymenu")
+  .append('<button id="hide">Меню</button>')
+  .append('<div class="mymenu-wrapper"></div>');
+
+  $("#hide").click(function () {
+    $(".mymenu-wrapper").toggle();
+  });
+
+  $(".mymenu-wrapper")
     .append("<p>Сумма прибавления</p>")
     .append('<input id="input-adder" type="number" value=200 />')
     .append('<button id="button-adder">Прибавить</button>')
@@ -39,7 +54,11 @@
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
+<<<<<<< HEAD
     .append('<p>Version: <span class="version">2.7</span></p>');
+=======
+    .append('<p>Version: <span class="version">2.9</span></p>');
+>>>>>>> 7096f72fe88c8e5ab699d22a68dfce7ba6573e07
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
@@ -48,7 +67,7 @@
   renderCurrentPage();
   renderBalanceWallet();
   if (currentPage == "product") {
-    $(".mymenu").append('<button id="button-discounts">Убрать скидки</button>');
+    $(".mymenu-wrapper").append('<button id="button-discounts">Убрать скидки</button>');
     $("#button-discounts").click(function () {
       removeDiscounts();
     });
@@ -68,9 +87,14 @@
     setCurrentHost(window.location.origin);
     renderCurrentHost();
   }
+<<<<<<< HEAD
 
   function addLoginButtons() {
     $(".mymenu").append('<button id="button-bigbarabum">BigBaraBum</button>').append('<button id="button-mason">Mason</button>');
+=======
+  function addLoginButtons() {
+    $(".mymenu-wrapper").append('<button id="button-bigbarabum">BigBaraBum</button>').append('<button id="button-mason">Mason</button>');
+>>>>>>> 7096f72fe88c8e5ab699d22a68dfce7ba6573e07
     $("#button-bigbarabum").click(function () {
       $("#login-name").get(0).value = "BigBaraBum";
       $("#login-pass").get(0).value = "stakan420";
