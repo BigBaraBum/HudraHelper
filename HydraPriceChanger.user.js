@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         HydraPriceChanger
-// @namespace    http://tampermonkey.net/
-// @version      3.4
+// @namespace    https://github.com/BigBaraBum
+// @version      3.5
 // @description  Allows you to visibly change the prices
-// @author       Nikita Inkin
+// @author       BigBaraBum
 // @match        http://hydraruzxpnew4af.onion/*
 // @match        http://hydra2exghh3rnmc.onion/*
 // @grant        none
@@ -38,14 +38,14 @@
     renderPageTitle();
   });
   $(".mymenu-wrapper")
-    .append("<p>Сумма прибавления</p>")
+    .append("<p>Сумма прибавления    sss</p>")
     .append('<input id="input-adder" type="number" value=200 />')
     .append('<button id="button-adder">Прибавить</button>')
     .append('<p>Текущий баланс в BTC: <span class="balance-btc"></span></p>')
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">3.4</span></p>')
+    .append('<p>Version: <span class="version">3.5</span></p>')
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
