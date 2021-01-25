@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    http://tampermonkey.net/
-// @version      3.0
+// @version      3.2
 // @description  Allows you to visibly change the prices
 // @author       Nikita Inkin
 // @match        http://hydraruzxpnew4af.onion/*
@@ -18,20 +18,17 @@
   var currentHost = "";
   //setRedStyle();
   $("body").append('<div class="mymenu"></div>');
-  $(".mymenu")
-    .css({
-      position: "absolute",
-      top: "0",
-      left: "0",
-      background: "rgba(255,255,255,1)",
-      "z-index": "999999",
-      border: "5px solid blue",
-      padding: "20px"
-    });
-  $(".mymenu")
-  .append('<button id="hide">Меню</button>')
-  .append('<div class="mymenu-wrapper"></div>');
-  $('.mymenu-wrapper').toggle();
+  $(".mymenu").css({
+    position: "absolute",
+    top: "0",
+    left: "0",
+    background: "rgba(255,255,255,1)",
+    "z-index": "999999",
+    border: "5px solid blue",
+    padding: "20px"
+  });
+  $(".mymenu").append('<button id="hide">Меню</button>').append('<div class="mymenu-wrapper"></div>');
+  $(".mymenu-wrapper").toggle();
   $("#hide").click(function () {
     $(".mymenu-wrapper").toggle();
   });
@@ -44,8 +41,7 @@
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">3.0</span></p>');
-
+    .append('<p>Version: <span class="version">3.2</span></p>');
 
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
@@ -53,11 +49,22 @@
   });
   renderCurrentPage();
   renderBalanceWallet();
+  renderPageTitle();
   if (currentPage == "product") {
     $(".mymenu-wrapper").append('<button id="button-discounts">Убрать скидки</button>');
     $("#button-discounts").click(function () {
       removeDiscounts();
     });
+  }
+  function getCurrentUserName() {
+    return $(".user_head .dropdown-toggle").get(0).innerText;
+  }
+  function renderPageTitle() {
+    if (document.title.includes("HYDRA")) {
+      document.title = getCurrentUserName();
+    } else {
+      document.title = getCurrentUserName() + document.title;
+    }
   }
   function renderCurrentPage() {
     if (window.location.pathname.startsWith("/product")) {
