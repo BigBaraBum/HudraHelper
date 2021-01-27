@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HydraPriceChanger
 // @namespace    https://github.com/BigBaraBum
-// @version      3.5
+// @version      3.6
 // @description  Allows you to visibly change the prices
 // @author       BigBaraBum
 // @match        http://hydraruzxpnew4af.onion/*
@@ -45,8 +45,10 @@
     .append('<p>Текущий адрес кошелька: <span class="btc-wallet"></span></p>')
     .append('<p>Текущий сайт: <span class="host-display"></span></p>')
     .append('<p>Страница: <span class="page-display"></span></p>')
-    .append('<p>Version: <span class="version">3.5</span></p>')
+    .append('<button id="button-discounts">Убрать скидки</button>')
+    .append('<p>Version: <span class="version">3.6</span></p>');
 
+  $("#button-discounts").click(removeDiscounts);
   $("#button-adder").click(function () {
     var value = $("#input-adder").get(0).value;
     renderPrices(parseInt(value));
@@ -92,6 +94,11 @@
   }
   function renderCurrentHost() {
     $(".host-display").get(0).textContent = currentHost;
+  }
+  function removeDiscounts() {
+    $(".av_price s").each(function () {
+      $(this).remove();
+    });
   }
   function setRedStyle() {
     $(".bg-primary").each(function () {
